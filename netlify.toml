@@ -1,0 +1,20 @@
+# Déploiement Netlify — Next.js en export statique (output: 'export' → dossier out/)
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Canonique : redirige www → apex (évite le contenu dupliqué / double indexation)
+[[redirects]]
+  from = "https://www.agropharmatchad.com/*"
+  to = "https://agropharmatchad.com/:splat"
+  status = 301
+  force = true
+
+# Page 404 (Next génère out/404.html)
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
