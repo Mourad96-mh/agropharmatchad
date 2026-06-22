@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site, waLink } from '@/lib/site';
-import { categories, getCategory } from '@/lib/products';
+import { categories, getCategory, slugify } from '@/lib/products';
 import { conseils } from '@/lib/conseils';
 import { Icon } from '@/components/Icons';
 import ProductItem from '@/components/ProductItem';
@@ -135,7 +135,7 @@ export default function CategoryPage({ params }) {
                   </div>
                   <div className="item-grid">
                     {g.items.map((it) => (
-                      <ProductItem key={it.name} item={it} fallbackImage={c.image} />
+                      <ProductItem key={it.name} item={it} fallbackImage={c.image} href={`/produits/${c.slug}/${slugify(it.name)}`} />
                     ))}
                   </div>
                 </div>
@@ -144,7 +144,7 @@ export default function CategoryPage({ params }) {
           ) : (
             <div className="item-grid">
               {(c.items || []).map((it) => (
-                <ProductItem key={it.name} item={it} fallbackImage={c.image} />
+                <ProductItem key={it.name} item={it} fallbackImage={c.image} href={`/produits/${c.slug}/${slugify(it.name)}`} />
               ))}
             </div>
           )}

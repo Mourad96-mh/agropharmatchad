@@ -307,24 +307,10 @@
 .item h4 { margin: 0 0 4px; color: var(--ink); font-size: 1.05rem; }
 .item p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
-/* ===== Expandable item (drill-down vers les variétés) ===== */
-.item-expandable { padding: 0; overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
-.item-expandable.is-open { box-shadow: var(--shadow-sm); }
-.item-expandable:hover { border-color: var(--green); }
-.item-toggle {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  padding: 18px 20px;
-  background: none;
-  border: 0;
-  text-align: left;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-}
-.item-toggle-text { flex: 1; min-width: 0; }
+/* ===== Article cliquable (lien vers sa page produit) ===== */
+.item-link { transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
+.item-link:hover { border-color: var(--green); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.item-link > div { flex: 1; min-width: 0; }
 .item-hint {
   display: inline-block;
   margin-top: 6px;
@@ -332,24 +318,33 @@
   font-weight: 700;
   color: var(--green-dark);
 }
-.item-chevron {
-  flex: none;
+.item-arrow { flex: none; color: var(--green-dark); transition: transform 0.15s ease; }
+.item-link:hover .item-arrow { transform: translateX(3px); }
+
+/* ===== Grille des variétés (page produit) ===== */
+.variant-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+@media (max-width: 720px) { .variant-grid { grid-template-columns: 1fr; } }
+.variant-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 12px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+}
+.variant-card h3 { margin: 0 0 6px; color: var(--green-dark); font-size: 1.15rem; }
+.variant-card p { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; flex: 1; }
+.variant-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  font-weight: 700;
+  font-size: 0.88rem;
   color: var(--green-dark);
-  transition: transform 0.2s ease;
 }
-.item-expandable.is-open .item-chevron { transform: rotate(180deg); }
-.item-variants {
-  list-style: none;
-  margin: 0;
-  padding: 4px 20px 18px;
-  border-top: 1px solid var(--line);
-  display: grid;
-  gap: 10px;
-}
-.item-variants li { padding-top: 10px; }
-.item-variants li + li { border-top: 1px dashed var(--line); }
-.item-variant-name { display: block; font-weight: 700; color: var(--ink); font-size: 0.98rem; }
-.item-variant-desc { display: block; margin-top: 2px; color: var(--muted); font-size: 0.9rem; }
+.variant-cta:hover { text-decoration: underline; }
 
 /* ===== Brand / partner strip ===== */
 .brand-strip {

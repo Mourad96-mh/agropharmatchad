@@ -1,5 +1,5 @@
 import { site } from '@/lib/site';
-import { categories } from '@/lib/products';
+import { categories, getProductPages } from '@/lib/products';
 import { conseils } from '@/lib/conseils';
 
 export const dynamic = 'force-static';
@@ -20,6 +20,13 @@ export default function sitemap() {
     priority: 0.7,
   }));
 
+  const itemRoutes = getProductPages().map((p) => ({
+    url: `${site.url}/produits/${p.categorySlug}/${p.itemSlug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+
   const conseilRoutes = conseils.map((c) => ({
     url: `${site.url}/conseils/${c.slug}`,
     lastModified: new Date(c.date),
@@ -27,5 +34,5 @@ export default function sitemap() {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...productRoutes, ...conseilRoutes];
+  return [...staticRoutes, ...productRoutes, ...itemRoutes, ...conseilRoutes];
 }
