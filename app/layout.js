@@ -44,6 +44,7 @@ export const metadata = {
     images: ['/og-default.jpg'],
   },
   robots: { index: true, follow: true },
+  verification: { google: 'Qv-MbJKj8M2oja-k8IsaIrC0UbeIml16BJWZJxo_FZw' },
 };
 
 export const viewport = {
