@@ -8,6 +8,7 @@ import productRoutes from './routes/products.js';
 import conseilRoutes from './routes/conseils.js';
 import uploadRoutes from './routes/uploads.js';
 import publishRoutes from './routes/publish.js';
+import settingsRoutes from './routes/settings.js';
 
 const app = express();
 app.use(express.json({ limit: '2mb' }));
@@ -24,6 +25,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/conseils', conseilRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/publish', publishRoutes);
+app.use('/api/settings', settingsRoutes);
 
 // 404
 app.use((req, res) => res.status(404).json({ error: 'Not found' }));

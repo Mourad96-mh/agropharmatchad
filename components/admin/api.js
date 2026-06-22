@@ -52,6 +52,9 @@ export const api = {
   updateConseil: (id, b) => request(`/api/conseils/${id}`, { method: 'PUT', body: b, auth: true }),
   deleteConseil: (id) => request(`/api/conseils/${id}`, { method: 'DELETE', auth: true }),
 
+  getSettings: () => request('/api/settings'),
+  updateSettings: (b) => request('/api/settings', { method: 'PUT', body: b, auth: true }),
+
   publish: () => request('/api/publish', { method: 'POST', auth: true }),
 
   async upload(file) {

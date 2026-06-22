@@ -53,6 +53,7 @@ export default function AdminShell({ children }) {
     { href: '/admin', label: 'Tableau de bord' },
     { href: '/admin/produits', label: 'Produits' },
     { href: '/admin/conseils', label: 'Conseils' },
+    { href: '/admin/parametres', label: 'Paramètres' },
   ];
 
   return (

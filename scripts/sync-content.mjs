@@ -42,9 +42,10 @@ async function main() {
     return;
   }
   try {
-    const [products, conseils] = await Promise.all([
+    const [products, conseils, settings] = await Promise.all([
       fetchJson(`${API}/api/products`),
       fetchJson(`${API}/api/conseils`),
+      fetchJson(`${API}/api/settings`),
     ]);
     fs.writeFileSync(
       path.join(libDir, 'products.data.json'),
@@ -54,7 +55,19 @@ async function main() {
       path.join(libDir, 'conseils.data.json'),
       JSON.stringify(conseils.map(strip), null, 2)
     );
-    console.log(`[sync] ${products.length} gammes, ${conseils.length} conseils synchronisés`);
+    // Coordonnées éditables (téléphone, WhatsApp) — fusionnées dans lib/site.js.
+    fs.writeFileSync(
+      path.join(libDir, 'site.data.json'),
+      JSON.stringify(
+        {
+          phoneDisplay: settings?.phoneDisplay || '',
+          whatsapp: settings?.whatsapp || '',
+        },
+        null,
+        2
+      )
+    );
+    console.log(`[sync] ${products.length} gammes, ${conseils.length} conseils + paramètres synchronisés`);
   } catch (e) {
     console.warn('[sync] échec — conservation du contenu existant :', e.message);
   }
