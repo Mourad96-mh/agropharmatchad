@@ -7,6 +7,21 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const libDir = path.resolve(__dirname, '../lib');
+
+// Charge .env.local (ce script tourne hors de Next, qui sinon lirait le fichier lui-même).
+function loadEnvLocal() {
+  try {
+    const file = path.resolve(__dirname, '../.env.local');
+    for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
+      const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
+      if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
+    }
+  } catch {
+    /* pas de .env.local — on continue */
+  }
+}
+loadEnvLocal();
+
 const API = process.env.CONTENT_API_URL;
 
 async function fetchJson(url) {

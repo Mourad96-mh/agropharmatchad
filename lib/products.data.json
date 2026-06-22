@@ -136,7 +136,8 @@
           }
         ]
       }
-    ]
+    ],
+    "items": []
   },
   {
     "slug": "produits-phytosanitaires",
@@ -148,6 +149,7 @@
     "intro": "Notre gamme de produits phytosanitaires homologués protège efficacement vos cultures du semis à la récolte. Insecticides, fongicides, herbicides et acaricides sélectionnés pour leur efficacité, dans le respect des bonnes pratiques agricoles et des doses recommandées.",
     "brand": "Savana",
     "brandNote": "AGROPHARMA TCHAD distribue les produits phytosanitaires Savana : des spécialités homologuées et fiables pour la protection des cultures, à employer selon les doses et bonnes pratiques recommandées.",
+    "advisory": false,
     "items": [
       {
         "name": "Insecticides",
@@ -173,7 +175,8 @@
         "name": "Régulateurs & adjuvants",
         "desc": "Mouillants et améliorateurs de traitement."
       }
-    ]
+    ],
+    "groups": []
   },
   {
     "slug": "engrais-liquides",
@@ -183,6 +186,7 @@
     "image": "/images/engrais-liquides.jpg",
     "tagline": "Nutrition foliaire et fertigation pour une assimilation rapide.",
     "intro": "Les engrais liquides AGROPHARMA TCHAD apportent aux cultures des éléments nutritifs rapidement assimilables, par voie foliaire ou par fertigation. Idéals pour corriger les carences, stimuler la croissance et améliorer la qualité et le calibre des récoltes.",
+    "advisory": false,
     "items": [
       {
         "name": "Engrais foliaires NPK",
@@ -204,7 +208,8 @@
         "name": "Solutions de fertigation",
         "desc": "Pour systèmes d’irrigation goutte-à-goutte."
       }
-    ]
+    ],
+    "groups": []
   },
   {
     "slug": "engrais-solides",
@@ -214,6 +219,7 @@
     "image": "/images/engrais-solides.jpg",
     "tagline": "Fertilisation de fond et d’entretien pour des sols riches.",
     "intro": "Notre gamme d’engrais solides couvre tous les besoins de fertilisation de fond et d’entretien : engrais minéraux NPK, urée, DAP, ainsi que des amendements organiques pour enrichir durablement vos sols et soutenir des rendements élevés saison après saison.",
+    "advisory": false,
     "items": [
       {
         "name": "NPK (formules variées)",
@@ -235,7 +241,8 @@
         "name": "Engrais organiques",
         "desc": "Amendements pour la vie et la structure du sol."
       }
-    ]
+    ],
+    "groups": []
   },
   {
     "slug": "materiels-agricoles",
@@ -245,6 +252,7 @@
     "image": "/images/materiels-agricoles.jpg",
     "tagline": "Équipements et outillage pour travailler, irriguer et traiter.",
     "intro": "AGROPHARMA TCHAD équipe les producteurs avec du matériel agricole fiable : pulvérisateurs, motopompes, systèmes d’irrigation et petit outillage. Des équipements robustes pour gagner en productivité et en efficacité sur l’exploitation.",
+    "advisory": false,
     "items": [
       {
         "name": "Pulvérisateurs",
@@ -266,6 +274,7 @@
         "name": "Équipements de protection",
         "desc": "Combinaisons, gants et masques pour les traitements."
       }
-    ]
+    ],
+    "groups": []
   }
 ]
