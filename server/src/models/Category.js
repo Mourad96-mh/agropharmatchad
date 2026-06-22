@@ -2,9 +2,15 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
+// Une variété / déclinaison d'un article (ex: « Minetto », « NPK 20-20-20 »)
+const VariantSchema = new Schema(
+  { name: String, desc: String },
+  { _id: false }
+);
+
 // Un article vendu (variété de semence, produit, matériel…)
 const ItemSchema = new Schema(
-  { name: String, image: String, desc: String },
+  { name: String, image: String, desc: String, variants: [VariantSchema] },
   { _id: false }
 );
 

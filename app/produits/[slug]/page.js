@@ -5,6 +5,7 @@ import { site, waLink } from '@/lib/site';
 import { categories, getCategory } from '@/lib/products';
 import { conseils } from '@/lib/conseils';
 import { Icon } from '@/components/Icons';
+import ProductItem from '@/components/ProductItem';
 import Faq from '@/components/Faq';
 
 export function generateStaticParams() {
@@ -134,15 +135,7 @@ export default function CategoryPage({ params }) {
                   </div>
                   <div className="item-grid">
                     {g.items.map((it) => (
-                      <div key={it.name} className="item item-media-row">
-                        <span className="item-media">
-                          <Image src={it.image || c.image} alt={it.name} fill sizes="64px" />
-                        </span>
-                        <div>
-                          <h4>{it.name}</h4>
-                          <p>{it.desc}</p>
-                        </div>
-                      </div>
+                      <ProductItem key={it.name} item={it} fallbackImage={c.image} />
                     ))}
                   </div>
                 </div>
@@ -151,15 +144,7 @@ export default function CategoryPage({ params }) {
           ) : (
             <div className="item-grid">
               {(c.items || []).map((it) => (
-                <div key={it.name} className="item item-media-row">
-                  <span className="item-media">
-                    <Image src={it.image || c.image} alt={it.name} fill sizes="64px" />
-                  </span>
-                  <div>
-                    <h4>{it.name}</h4>
-                    <p>{it.desc}</p>
-                  </div>
-                </div>
+                <ProductItem key={it.name} item={it} fallbackImage={c.image} />
               ))}
             </div>
           )}

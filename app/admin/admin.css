@@ -272,6 +272,40 @@ body.admin-active .fab-wa {
   gap: 6px;
 }
 
+/* Éditeur de variétés (au sein d'un article) */
+.admin-variants {
+  margin-top: 14px;
+  padding: 12px;
+  background: #f7f9fb;
+  border: 1px dashed #cdd5de;
+  border-radius: 8px;
+}
+.admin-variants-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: #6b7785;
+  margin-bottom: 10px;
+}
+.admin-variant-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.admin-variant-row input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cdd5de;
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+@media (max-width: 640px) {
+  .admin-variant-row { grid-template-columns: 1fr; }
+}
+
 /* Upload image */
 .admin-uploader {
   display: flex;

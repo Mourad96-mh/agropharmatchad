@@ -92,6 +92,12 @@ export function Icon({ name, className = '', size = 24 }) {
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>
       );
+    case 'chevron':
+      return (
+        <svg {...props}>
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      );
     case 'leaf':
       return (
         <svg {...props}>

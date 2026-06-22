@@ -18,12 +18,23 @@
           {
             "name": "Tomate",
             "image": "/images/seeds/tomate.jpg",
-            "desc": "Variétés hybrides résistantes, fermes et productives."
+            "desc": "Variétés hybrides résistantes, fermes et productives.",
+            "variants": [
+              { "name": "Mongal F1", "desc": "Sélection INRA, fruits ronds 50-70 mm, bonne nouaison en zone chaude et humide." },
+              { "name": "Thorgal F1", "desc": "Saison chaude et pluvieuse, fruits fermes de 120-130 g à collet vert." },
+              { "name": "Cobra 26 F1", "desc": "Tolérante au TYLCV et au flétrissement bactérien." },
+              { "name": "Lindo F1", "desc": "Hybride productif, fruits fermes adaptés au transport." },
+              { "name": "Ninja F1", "desc": "Variété de plein champ adaptée aux tropiques." }
+            ]
           },
           {
             "name": "Piment & Poivron",
             "image": "/images/seeds/poivron.jpg",
-            "desc": "Variétés piquantes et douces à haut rendement."
+            "desc": "Variétés piquantes et douces à haut rendement.",
+            "variants": [
+              { "name": "Yolo Wonder +", "desc": "Poivron doux, fruits cubiques à 4 lobes, chair épaisse et ferme." },
+              { "name": "Safi", "desc": "Piment fort, fruits charnus et très piquants (~6 g)." }
+            ]
           },
           {
             "name": "Aubergine",
@@ -59,12 +70,23 @@
           {
             "name": "Laitue",
             "image": "/images/seeds/laitue.jpg",
-            "desc": "Pommes serrées, résistantes à la montée à graines."
+            "desc": "Pommes serrées, résistantes à la montée à graines.",
+            "variants": [
+              { "name": "Minetto", "desc": "Type iceberg, pomme serrée, lente à monter à graines et tolérante à la chaleur." },
+              { "name": "Kinemontepas", "desc": "Type batavia, feuilles vertes et croquantes, très résistante à la chaleur." },
+              { "name": "Arpège", "desc": "Variété adaptée aux conditions tropicales et sahéliennes." }
+            ]
           },
           {
             "name": "Chou",
             "image": "/images/seeds/chou.jpg",
-            "desc": "Chou pommé et chou de Chine, têtes fermes et homogènes."
+            "desc": "Chou pommé et chou de Chine, têtes fermes et homogènes.",
+            "variants": [
+              { "name": "F1 KK Cross", "desc": "Chou pommé hybride d'environ 1,6 kg, très précoce (~58 jours)." },
+              { "name": "F1 Tropica Cross", "desc": "Hybride adapté aux conditions tropicales, tête ferme." },
+              { "name": "Fortune F1", "desc": "Variété hybride homogène et productive." },
+              { "name": "Oxylus", "desc": "Adaptée à la saison des pluies." }
+            ]
           },
           {
             "name": "Épinard & Amarante",
@@ -80,7 +102,12 @@
           {
             "name": "Oignon",
             "image": "/images/seeds/oignon.jpg",
-            "desc": "Bulbes de calibre régulier, bonne conservation."
+            "desc": "Bulbes de calibre régulier, bonne conservation.",
+            "variants": [
+              { "name": "Violet de Galmi", "desc": "Bulbe violet, variété ouest-africaine de référence, bonne conservation." },
+              { "name": "Safari", "desc": "Variété productive adaptée aux tropiques." },
+              { "name": "Violet Damani", "desc": "Sélection Technisem à bulbe violet, rustique." }
+            ]
           },
           {
             "name": "Échalote",
@@ -146,30 +173,72 @@
     "icon": "shield",
     "image": "/images/produits-phytosanitaires.jpg",
     "tagline": "Protégez vos cultures contre les ravageurs, maladies et mauvaises herbes.",
-    "intro": "Notre gamme de produits phytosanitaires homologués protège efficacement vos cultures du semis à la récolte. Insecticides, fongicides, herbicides et acaricides sélectionnés pour leur efficacité, dans le respect des bonnes pratiques agricoles et des doses recommandées.",
+    "intro": "Notre gamme de produits phytosanitaires homologués protège efficacement vos cultures du semis à la récolte. Traitement de semences, insecticides, fongicides, herbicides et acaricides sélectionnés pour leur efficacité, dans le respect des bonnes pratiques agricoles et des doses recommandées.",
     "brand": "Savana",
     "brandNote": "AGROPHARMA TCHAD distribue les produits phytosanitaires Savana : des spécialités homologuées et fiables pour la protection des cultures, à employer selon les doses et bonnes pratiques recommandées.",
     "advisory": false,
     "items": [
       {
+        "name": "Traitement de semences",
+        "desc": "Protection des semences contre les insectes et maladies dès le semis.",
+        "variants": [
+          { "name": "MOMTAZ", "desc": "Insecticide-fongicide de traitement de semences (poudre)." },
+          { "name": "MOMTAZ FLO", "desc": "Insecticide-fongicide liquide pour traitement de semences." },
+          { "name": "MOMTAZ PRO", "desc": "Insecticide-fongicide de traitement de semences, large spectre." },
+          { "name": "MOMTAZ C", "desc": "Insecticide-fongicide pour le traitement de semences." },
+          { "name": "MOMTAZ SYS", "desc": "Insecticide-fongicide systémique liquide de traitement de semences." },
+          { "name": "MOMTAZ TRIO", "desc": "Insecticide-fongicide de traitement de semences à triple protection." }
+        ]
+      },
+      {
         "name": "Insecticides",
-        "desc": "Contre chenilles, pucerons, mouches blanches et autres ravageurs."
+        "desc": "Contre chenilles, pucerons, mouches blanches et autres ravageurs.",
+        "variants": [
+          { "name": "PACHA", "desc": "Insecticide polyvalent à large spectre." },
+          { "name": "EMACOT", "desc": "Insecticide efficace contre les chenilles et foreurs." },
+          { "name": "SULTAN", "desc": "Insecticide pour cultures maraîchères et de rente." },
+          { "name": "JAZZFIRE", "desc": "Insecticide contre les insectes piqueurs-suceurs." },
+          { "name": "EMARON", "desc": "Insecticide à large spectre d'action." },
+          { "name": "PYRIGA", "desc": "Insecticide à action de choc rapide." }
+        ]
       },
       {
         "name": "Fongicides",
-        "desc": "Préventifs et curatifs contre mildiou, oïdium et pourritures."
+        "desc": "Préventifs et curatifs contre mildiou, oïdium et pourritures.",
+        "variants": [
+          { "name": "AZOX", "desc": "Fongicide systémique (azoxystrobine), préventif et curatif." },
+          { "name": "DIFENOSAV", "desc": "Fongicide (difénoconazole) contre les maladies foliaires." },
+          { "name": "FONGICUR", "desc": "Fongicide curatif et préventif à large spectre." },
+          { "name": "FONGIPRO", "desc": "Fongicide de protection des cultures." },
+          { "name": "HIPRO", "desc": "Fongicide foliaire à large spectre." },
+          { "name": "TALO", "desc": "Fongicide foliaire de contact." }
+        ]
       },
       {
         "name": "Herbicides",
-        "desc": "Sélectifs et totaux pour un désherbage maîtrisé."
+        "desc": "Sélectifs et totaux pour un désherbage maîtrisé.",
+        "variants": [
+          { "name": "FINISH 68 SG", "desc": "Herbicide total systémique (glyphosate)." },
+          { "name": "GENGIS 200 SL", "desc": "Herbicide total de contact et systémique." },
+          { "name": "DIGA FAGALAN", "desc": "Herbicide total systémique." },
+          { "name": "PENDISTAR", "desc": "Herbicide de pré-levée (pendiméthaline)." },
+          { "name": "NICOMAIS", "desc": "Herbicide sélectif du maïs." },
+          { "name": "METRIBUSAV", "desc": "Herbicide sélectif de post-levée." }
+        ]
       },
       {
         "name": "Acaricides",
-        "desc": "Lutte ciblée contre les acariens et araignées rouges."
+        "desc": "Lutte ciblée contre les acariens et araignées rouges.",
+        "variants": [
+          { "name": "ACARIUS", "desc": "Acaricide contre acariens et araignées rouges." }
+        ]
       },
       {
         "name": "Nématicides",
-        "desc": "Protection des racines contre les nématodes."
+        "desc": "Protection des racines contre les nématodes.",
+        "variants": [
+          { "name": "NEMGUARD", "desc": "Nématicide pour la protection des racines." }
+        ]
       },
       {
         "name": "Régulateurs & adjuvants",
@@ -186,27 +255,68 @@
     "image": "/images/engrais-liquides.jpg",
     "tagline": "Nutrition foliaire et fertigation pour une assimilation rapide.",
     "intro": "Les engrais liquides AGROPHARMA TCHAD apportent aux cultures des éléments nutritifs rapidement assimilables, par voie foliaire ou par fertigation. Idéals pour corriger les carences, stimuler la croissance et améliorer la qualité et le calibre des récoltes.",
+    "brand": "Coda",
+    "brandNote": "AGROPHARMA TCHAD distribue la gamme Coda (groupe SAS-Agri) : engrais foliaires, oligo-éléments, biostimulants et conditionneurs de sol formulés pour une assimilation rapide et la correction des carences.",
     "advisory": false,
     "items": [
       {
         "name": "Engrais foliaires NPK",
-        "desc": "Formules équilibrées pour chaque stade de culture."
+        "desc": "Formules équilibrées pour chaque stade de culture.",
+        "variants": [
+          { "name": "Codafol 13-13-13", "desc": "Formule équilibrée, croissance et entretien général." },
+          { "name": "Codafol N33", "desc": "Très riche en azote, stade végétatif et reprise de croissance." },
+          { "name": "Codafol 14-6-5", "desc": "Dominante azotée, démarrage et développement foliaire." },
+          { "name": "Codafol P54", "desc": "Très riche en phosphore, enracinement et démarrage." },
+          { "name": "Codafol 7-21-7", "desc": "Riche en phosphore, floraison et nouaison." },
+          { "name": "Codafol 4-16-28", "desc": "Phospho-potassique, floraison et grossissement des fruits." },
+          { "name": "Codafol K30 / K35 acid", "desc": "Riche en potassium, maturation et qualité des fruits." },
+          { "name": "Codafol maximus 8-11-3", "desc": "Formule de démarrage concentrée." },
+          { "name": "K·MAD", "desc": "Apport potassique foliaire complémentaire." }
+        ]
       },
       {
         "name": "Oligo-éléments",
-        "desc": "Correction des carences en fer, zinc, bore, magnésium."
+        "desc": "Correction des carences en fer, zinc, bore, magnésium.",
+        "variants": [
+          { "name": "Codabor", "desc": "Correcteur de carence en bore." },
+          { "name": "Coda-Fe-L / Numafer", "desc": "Correcteur de carence en fer (chlorose)." },
+          { "name": "Coda-Zn-L", "desc": "Correcteur de carence en zinc." },
+          { "name": "Coda-Mn-L", "desc": "Correcteur de carence en manganèse." },
+          { "name": "Coda-Cu-L", "desc": "Correcteur de carence en cuivre." },
+          { "name": "Coda-Mg-L", "desc": "Correcteur de carence en magnésium." },
+          { "name": "Codamix / Codamicro R", "desc": "Mélange équilibré d'oligo-éléments." }
+        ]
       },
       {
         "name": "Biostimulants",
-        "desc": "Acides aminés et algues pour stimuler la croissance."
+        "desc": "Acides aminés et algues pour stimuler la croissance.",
+        "variants": [
+          { "name": "Codamin 150", "desc": "Biostimulant à base d'acides aminés libres." },
+          { "name": "Dalgin / Dalcon", "desc": "Biostimulant à base d'algues, stimule la croissance." },
+          { "name": "Radimax +", "desc": "Biostimulant racinaire, favorise l'enracinement." },
+          { "name": "Codan plus", "desc": "Biostimulant de floraison et de nouaison." },
+          { "name": "Fruitmax 10", "desc": "Développement et grossissement des fruits." },
+          { "name": "Codabrix", "desc": "Stimule la maturation et le taux de sucre." }
+        ]
       },
       {
-        "name": "Engrais organo-minéraux",
-        "desc": "Association matière organique et minéraux."
+        "name": "Conditionneurs de sol",
+        "desc": "Acides humiques et amendements pour la structure du sol.",
+        "variants": [
+          { "name": "Codahumus 20", "desc": "Acides humiques et fulviques, structure et vie du sol." },
+          { "name": "Codahumus PK", "desc": "Acides humiques enrichis en phosphore et potassium." },
+          { "name": "E-codahumus", "desc": "Conditionneur de sol concentré." },
+          { "name": "Codargon", "desc": "Améliore la structure et la rétention en eau du sol." }
+        ]
       },
       {
         "name": "Solutions de fertigation",
-        "desc": "Pour systèmes d’irrigation goutte-à-goutte."
+        "desc": "Produits solubles pour l'irrigation goutte-à-goutte.",
+        "variants": [
+          { "name": "Codasal Premium", "desc": "Correcteur de calcium, applicable en fertigation." },
+          { "name": "Codahumus S80", "desc": "Acides humiques solubles pour la fertigation." },
+          { "name": "Geoactive", "desc": "Activateur du microbiome du sol." }
+        ]
       }
     ],
     "groups": []

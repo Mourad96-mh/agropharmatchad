@@ -53,6 +53,45 @@
 .nav a:hover::after, .nav a.active::after { width: 100%; }
 .nav a.active { color: var(--green-dark); }
 
+/* ===== Dropdown « Produits » ===== */
+.nav-item { position: relative; }
+.nav-item-row { display: inline-flex; align-items: center; gap: 4px; }
+.nav-caret {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: 0;
+  padding: 4px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: -16px;
+  min-width: 240px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  z-index: 60;
+}
+.has-dropdown:hover .nav-dropdown,
+.has-dropdown:focus-within .nav-dropdown { display: flex; }
+.nav-dropdown a {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+.nav-dropdown a::after { display: none; }
+.nav-dropdown a:hover { background: var(--bg-green); color: var(--green-dark); }
+
 .header-cta { display: flex; align-items: center; gap: 12px; }
 
 .menu-toggle {
@@ -93,6 +132,37 @@
   .nav a { width: 100%; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .header-cta .btn-desktop { display: none; }
   .menu-toggle { display: flex; }
+
+  /* Dropdown « Produits » en accordéon sur mobile */
+  .nav-item { width: 100%; }
+  .nav-item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-item-row a { width: auto; border-bottom: 0; }
+  .nav-caret { padding: 14px 8px; }
+  .nav-dropdown {
+    position: static;
+    min-width: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+  .has-dropdown:hover .nav-dropdown { display: none; }
+  .has-dropdown.open .nav-dropdown { display: flex; }
+  .nav-dropdown a {
+    padding: 12px 0 12px 18px;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    color: var(--muted);
+  }
+  .nav-caret { transition: transform 0.2s ease; }
+  .has-dropdown.open .nav-caret { transform: rotate(180deg); }
 }
 
 /* ===== Hero ===== */
@@ -236,6 +306,50 @@
 }
 .item h4 { margin: 0 0 4px; color: var(--ink); font-size: 1.05rem; }
 .item p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+/* ===== Expandable item (drill-down vers les variétés) ===== */
+.item-expandable { padding: 0; overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+.item-expandable.is-open { box-shadow: var(--shadow-sm); }
+.item-expandable:hover { border-color: var(--green); }
+.item-toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 18px 20px;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.item-toggle-text { flex: 1; min-width: 0; }
+.item-hint {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+.item-chevron {
+  flex: none;
+  color: var(--green-dark);
+  transition: transform 0.2s ease;
+}
+.item-expandable.is-open .item-chevron { transform: rotate(180deg); }
+.item-variants {
+  list-style: none;
+  margin: 0;
+  padding: 4px 20px 18px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+}
+.item-variants li { padding-top: 10px; }
+.item-variants li + li { border-top: 1px dashed var(--line); }
+.item-variant-name { display: block; font-weight: 700; color: var(--ink); font-size: 0.98rem; }
+.item-variant-desc { display: block; margin-top: 2px; color: var(--muted); font-size: 0.9rem; }
 
 /* ===== Brand / partner strip ===== */
 .brand-strip {
