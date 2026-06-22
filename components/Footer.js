@@ -51,6 +51,17 @@ export default function Footer() {
         <div className="footer-bottom">
           <span>© {year} {site.name}. Tous droits réservés.</span>
           <span>Semences · Phytosanitaires · Engrais · Matériels agricoles — {site.address.city}, Tchad</span>
+          <span>
+            Création de site web par{' '}
+            <a
+              href="https://www.moudevpro.com/"
+              target="_blank"
+              rel="noopener"
+              title="Création de site web et développement par MouDevPro"
+            >
+              MouDevPro
+            </a>
+          </span>
         </div>
       </div>
     </footer>
