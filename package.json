@@ -5,6 +5,7 @@
   "description": "Site vitrine AGROPHARMA TCHAD - semences, phytosanitaires, engrais et matériels agricoles",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/sync-content.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

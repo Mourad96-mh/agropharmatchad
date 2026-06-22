@@ -59,6 +59,27 @@ téléphone et WhatsApp disponibles partout (+ bouton flottant).
 - `sitemap.xml` et `robots.txt` générés automatiquement (mettre à jour `url` dans `lib/site.js`).
 - Image OpenGraph = logo. Pour un meilleur partage social, prévoir une image 1200×630.
 
+## Administration (tableau de bord `/admin`)
+
+Le catalogue (`lib/products.js`) et les conseils (`lib/conseils.js`) sont désormais gérés depuis un
+**tableau de bord** à `/admin`, adossé à une **API Express + MongoDB** (`server/`) et **Cloudinary**
+pour les images. Le site public **reste statique** : au build, `scripts/sync-content.mjs` récupère le
+contenu de l'API et l'écrit dans `lib/products.data.json` / `lib/conseils.data.json` (ces fichiers
+servent aussi de contenu de secours si l'API est indisponible).
+
+**Flux de publication :** modifier dans `/admin` → cliquer sur *Publier les modifications* →
+l'API déclenche un build Netlify → le site est régénéré (1–2 min).
+
+Installation, variables d'environnement et déploiement (MongoDB Atlas, Cloudinary, Render, Netlify) :
+voir **`server/README.md`**.
+
+Variables d'environnement côté site :
+
+| Variable | Usage | Où |
+|----------|-------|-----|
+| `NEXT_PUBLIC_API_URL` | l'admin (navigateur) appelle l'API | Netlify + `.env.local` |
+| `CONTENT_API_URL` | sync du contenu au build | Netlify (build) + local |
+
 ## Déploiement
 
 Compatible **Vercel** (recommandé) ou tout hébergeur Node. Pensez à définir le bon

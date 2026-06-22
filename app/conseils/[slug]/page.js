@@ -49,12 +49,15 @@ export default function ConseilPage({ params }) {
 
   const others = conseils.filter((x) => x.slug !== c.slug).slice(0, 2);
 
+  // c.image peut être un chemin local (/images/…) ou une URL absolue (Cloudinary).
+  const imageAbs = c.image?.startsWith('http') ? c.image : `${site.url}${c.image}`;
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: c.title,
     description: c.excerpt,
-    image: `${site.url}${c.image}`,
+    image: imageAbs,
     datePublished: c.date,
     dateModified: c.date,
     author: { '@type': 'Organization', name: site.name },

@@ -13,8 +13,8 @@ const aiBots = [
 export default function robots() {
   return {
     rules: [
-      { userAgent: '*', allow: '/' },
-      ...aiBots.map((userAgent) => ({ userAgent, allow: '/' })),
+      { userAgent: '*', allow: '/', disallow: '/admin/' },
+      ...aiBots.map((userAgent) => ({ userAgent, allow: '/', disallow: '/admin/' })),
     ],
     sitemap: `${site.url}/sitemap.xml`,
     host: site.url,

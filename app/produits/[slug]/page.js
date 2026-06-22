@@ -49,7 +49,14 @@ export default function CategoryPage({ params }) {
     ],
   };
 
-  const allItems = c.groups ? c.groups.flatMap((g) => g.items) : c.items;
+  const hasGroups = Array.isArray(c.groups) && c.groups.length > 0;
+  const allItems = hasGroups ? c.groups.flatMap((g) => g.items) : c.items || [];
+  // Les images locales ont une variante .webp pré-générée ; les URLs Cloudinary sont utilisées telles quelles.
+  const heroImg = c.image
+    ? c.image.startsWith('/images/')
+      ? c.image.replace(/\.jpg$/, '.webp')
+      : c.image
+    : '';
   const itemListJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -70,7 +77,7 @@ export default function CategoryPage({ params }) {
 
       <section
         className={`page-hero${c.image ? ' page-hero-img' : ''}`}
-        style={c.image ? { backgroundImage: `linear-gradient(90deg, rgba(20,40,18,0.82) 0%, rgba(20,40,18,0.55) 60%, rgba(20,40,18,0.35) 100%), url(${c.image.replace(/\.jpg$/, '.webp')})` } : undefined}
+        style={c.image ? { backgroundImage: `linear-gradient(90deg, rgba(20,40,18,0.82) 0%, rgba(20,40,18,0.55) 60%, rgba(20,40,18,0.35) 100%), url(${heroImg})` } : undefined}
       >
         <div className="container">
           <nav className="breadcrumb">
@@ -114,10 +121,10 @@ export default function CategoryPage({ params }) {
           )}
 
           <h2 style={{ marginBottom: 24 }}>
-            {c.groups ? 'Nos variétés par catégorie' : 'Ce que nous proposons'}
+            {hasGroups ? 'Nos variétés par catégorie' : 'Ce que nous proposons'}
           </h2>
 
-          {c.groups ? (
+          {hasGroups ? (
             <div className="groups">
               {c.groups.map((g) => (
                 <div key={g.title} className="group">
@@ -143,7 +150,7 @@ export default function CategoryPage({ params }) {
             </div>
           ) : (
             <div className="item-grid">
-              {c.items.map((it) => (
+              {(c.items || []).map((it) => (
                 <div key={it.name} className="item item-media-row">
                   <span className="item-media">
                     <Image src={it.image || c.image} alt={it.name} fill sizes="64px" />
