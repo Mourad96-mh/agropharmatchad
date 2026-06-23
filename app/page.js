@@ -143,8 +143,14 @@ export default function Home() {
               <Link href="/a-propos" className="btn btn-ghost">En savoir plus <Icon name="arrow" size={18} /></Link>
             </div>
           </div>
-          <div className="media-card">
-            <Image src="/logo.jpeg" alt="AGROPHARMA TCHAD" width={420} height={455} />
+          <div className="product-figure">
+            <Image
+              src="/images/recolte-tomates.jpg"
+              alt="Récolte abondante de tomates au Tchad issue de semences de qualité"
+              fill
+              sizes="(max-width: 760px) 100vw, 480px"
+            />
+            <span className="product-figure-tag"><Icon name="seed" size={16} /> Récolte au Tchad</span>
           </div>
         </div>
       </section>
@@ -159,14 +165,22 @@ export default function Home() {
           </div>
           <div className="partners">
             {[
-              { name: 'Technisem', logo: '/images/partners/technisem.jpeg', specialty: 'Semences' },
-              { name: 'Savana', logo: '/images/partners/savana.jpeg', specialty: 'Produits phytosanitaires' },
-              { name: 'Coda', logo: '/images/partners/coda.jpeg', specialty: 'Engrais' },
+              { name: 'Technisem', logo: '/images/partners/technisem.jpeg', specialty: 'Semences', url: 'https://technisem.com' },
+              { name: 'Savana', logo: '/images/partners/savana.jpeg', specialty: 'Produits phytosanitaires', url: 'https://savana-france.com' },
+              { name: 'Coda', logo: '/images/partners/coda.jpeg', specialty: 'Engrais', url: 'https://www.sas-agri.com/fr/coda/' },
             ].map((p) => (
-              <div key={p.name} className="partner">
+              <a
+                key={p.name}
+                href={p.url}
+                className="partner"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visiter le site de ${p.name} (nouvel onglet)`}
+              >
                 <Image src={p.logo} alt={`${p.name} — partenaire ${p.specialty.toLowerCase()}`} width={300} height={120} />
                 <span className="partner-tag">{p.specialty}</span>
-              </div>
+                <span className="partner-visit">Visiter le site <Icon name="arrow" size={14} /></span>
+              </a>
             ))}
           </div>
         </div>

@@ -21,7 +21,10 @@ const values = [
 export default function AProposPage() {
   return (
     <>
-      <section className="page-hero">
+      <section
+        className="page-hero page-hero-img"
+        style={{ backgroundImage: 'linear-gradient(90deg, rgba(20,40,18,0.82) 0%, rgba(20,40,18,0.55) 60%, rgba(20,40,18,0.35) 100%), url(/images/champs-tchad.webp)' }}
+      >
         <div className="container">
           <nav className="breadcrumb"><Link href="/">Accueil</Link> <span>/ À propos</span></nav>
           <h1>À propos d’AGROPHARMA TCHAD</h1>

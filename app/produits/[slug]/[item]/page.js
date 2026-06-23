@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site, waLink } from '@/lib/site';
-import { getItem, getCategoryItems, getProductPages } from '@/lib/products';
+import { getItem, getCategoryItems, getProductPages, getItemVariants } from '@/lib/products';
+import { heroImage } from '@/lib/heroImage';
 import { Icon } from '@/components/Icons';
 import Faq from '@/components/Faq';
 
@@ -10,12 +11,17 @@ export function generateStaticParams() {
   return getProductPages().map((p) => ({ slug: p.categorySlug, item: p.itemSlug }));
 }
 
-export function generateMetadata({ params }) {
-  const found = getItem(params.slug, params.item);
+export async function generateMetadata({ params }) {
+  const { slug, item: itemSlug } = await params;
+  const found = getItem(slug, itemSlug);
   if (!found) return {};
   const { category, item, variants } = found;
   const names = variants.map((v) => v.name).join(', ');
-  const description = `${item.name} au Tchad : ${names}. ${item.desc} AGROPHARMA TCHAD — ${category.title}.`.slice(0, 158);
+  const description = (
+    variants.length
+      ? `${item.name} au Tchad : ${names}. ${item.desc} AGROPHARMA TCHAD — ${category.title}.`
+      : `${item.name} au Tchad. ${item.desc} AGROPHARMA TCHAD — ${category.title}.`
+  ).slice(0, 158);
   return {
     title: `${item.name} — ${category.title} au Tchad`,
     description,
@@ -28,20 +34,20 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function ItemPage({ params }) {
-  const found = getItem(params.slug, params.item);
+export default async function ItemPage({ params }) {
+  const { slug, item: itemSlug } = await params;
+  const found = getItem(slug, itemSlug);
   if (!found) notFound();
   const { category, item, variants } = found;
 
-  // Autres produits de la même gamme qui ont aussi une page dédiée.
-  const siblings = getCategoryItems(category).filter((it) => it.slug !== item.slug && it.hasVariants);
+  // Autres produits de la même gamme (chacun a sa page dédiée).
+  const siblings = getCategoryItems(category)
+    .filter((it) => it.slug !== item.slug)
+    .slice(0, 8);
 
   const img = item.image || category.image;
-  const heroImg = img
-    ? img.startsWith('/images/')
-      ? img.replace(/\.jpg$/, '.webp')
-      : img
-    : '';
+  const heroImg = heroImage(img);
+  const imgAbs = img ? (img.startsWith('http') ? img : `${site.url}${img}`) : undefined;
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -54,24 +60,39 @@ export default function ItemPage({ params }) {
     ],
   };
 
-  const itemListJsonLd = {
+  const productJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: `${item.name} — AGROPHARMA TCHAD`,
-    itemListElement: variants.map((v, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: v.name,
-      description: v.desc || undefined,
-    })),
+    '@type': 'Product',
+    name: item.name,
+    description: item.desc || undefined,
+    ...(imgAbs ? { image: imgAbs } : {}),
+    category: category.title,
+    ...(category.brand ? { brand: { '@type': 'Brand', name: category.brand } } : {}),
   };
+
+  const itemListJsonLd = variants.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: `${item.name} — AGROPHARMA TCHAD`,
+        itemListElement: variants.map((v, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: v.name,
+          description: v.desc || undefined,
+        })),
+      }
+    : null;
 
   const waMsg = `Bonjour AGROPHARMA TCHAD, je suis intéressé(e) par : ${item.name} (${category.title}). Pouvez-vous m'envoyer un devis ?`;
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+      {itemListJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
+      )}
 
       <section
         className={`page-hero${img ? ' page-hero-img' : ''}`}
@@ -101,11 +122,22 @@ export default function ItemPage({ params }) {
 
           <div className="split" style={{ alignItems: 'start', marginBottom: 40 }}>
             <div>
-              <h2>{variants.length} variété{variants.length > 1 ? 's' : ''} disponible{variants.length > 1 ? 's' : ''}</h2>
+              <h2>
+                {variants.length > 0
+                  ? `${variants.length} variété${variants.length > 1 ? 's' : ''} disponible${variants.length > 1 ? 's' : ''}`
+                  : 'Description'}
+              </h2>
               <p className="lead">
-                Voici les {item.name.toLowerCase()} que nous proposons. Dites-nous votre besoin (culture, surface, saison) :
-                notre équipe vous oriente vers la variété la plus adaptée.
+                {variants.length > 0
+                  ? `Voici les ${item.name.toLowerCase()} que nous proposons. Dites-nous votre besoin (culture, surface, saison) : notre équipe vous oriente vers la variété la plus adaptée.`
+                  : item.desc}
               </p>
+              {variants.length === 0 && (
+                <p style={{ color: 'var(--muted)' }}>
+                  Disponible chez AGROPHARMA TCHAD. Contactez-nous pour connaître les conditionnements,
+                  la disponibilité et obtenir un devis adapté à votre exploitation.
+                </p>
+              )}
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 20 }}>
                 <a href={waLink(waMsg)} className="btn btn-wa" target="_blank" rel="noopener noreferrer">
                   <Icon name="whatsapp" size={18} /> Devis pour ce produit
@@ -115,26 +147,39 @@ export default function ItemPage({ params }) {
                 </Link>
               </div>
             </div>
-            <div className="media-card" style={{ display: 'grid', placeItems: 'center', textAlign: 'center' }}>
-              <div className="card-icon" style={{ width: 84, height: 84, background: '#fff', marginBottom: 16 }}>
-                <Icon name={category.icon} size={42} />
+            {img ? (
+              <div className="product-figure">
+                <Image src={img} alt={item.name} fill sizes="(max-width: 760px) 100vw, 480px" />
+                <span className="product-figure-tag"><Icon name={category.icon} size={16} /> {category.short}</span>
               </div>
-              <h3 style={{ color: '#fff' }}>{item.name}</h3>
-              <p style={{ color: '#d9f2cf', margin: 0 }}>{category.title} — AGROPHARMA TCHAD</p>
-            </div>
+            ) : (
+              <div className="media-card" style={{ display: 'grid', placeItems: 'center', textAlign: 'center' }}>
+                <div className="card-icon" style={{ width: 84, height: 84, background: '#fff', marginBottom: 16 }}>
+                  <Icon name={category.icon} size={42} />
+                </div>
+                <h3 style={{ color: '#fff' }}>{item.name}</h3>
+                <p style={{ color: '#d9f2cf', margin: 0 }}>{category.title} — AGROPHARMA TCHAD</p>
+              </div>
+            )}
           </div>
 
-          <div className="variant-grid">
-            {variants.map((v) => (
-              <div key={v.name} className="variant-card">
-                <h3>{v.name}</h3>
-                {v.desc && <p>{v.desc}</p>}
-                <a href={waLink(`Bonjour AGROPHARMA TCHAD, je souhaite un devis pour ${v.name} (${item.name}).`)} className="variant-cta" target="_blank" rel="noopener noreferrer">
-                  <Icon name="whatsapp" size={15} /> Demander un devis
-                </a>
-              </div>
-            ))}
-          </div>
+          {variants.length > 0 && (
+            <div className="variant-grid">
+              {getItemVariants(item).map((v) => (
+                <Link
+                  key={v.slug}
+                  href={`/produits/${category.slug}/${item.slug}/${v.slug}`}
+                  className="variant-card"
+                >
+                  <h3>{v.name}</h3>
+                  {v.desc && <p>{v.desc}</p>}
+                  <span className="variant-cta">
+                    Voir le détail <Icon name="arrow" size={15} />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

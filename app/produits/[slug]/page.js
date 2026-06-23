@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site, waLink } from '@/lib/site';
 import { categories, getCategory, slugify } from '@/lib/products';
+import { heroImage } from '@/lib/heroImage';
 import { conseils } from '@/lib/conseils';
 import { Icon } from '@/components/Icons';
 import ProductItem from '@/components/ProductItem';
@@ -12,8 +13,9 @@ export function generateStaticParams() {
   return categories.map((c) => ({ slug: c.slug }));
 }
 
-export function generateMetadata({ params }) {
-  const c = getCategory(params.slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const c = getCategory(slug);
   if (!c) return {};
   const description =
     c.intro.length > 158 ? c.intro.slice(0, 155).replace(/\s+\S*$/, '') + '…' : c.intro;
@@ -29,8 +31,9 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function CategoryPage({ params }) {
-  const c = getCategory(params.slug);
+export default async function CategoryPage({ params }) {
+  const { slug } = await params;
+  const c = getCategory(slug);
   if (!c) notFound();
 
   const others = categories.filter((x) => x.slug !== c.slug);
@@ -52,12 +55,7 @@ export default function CategoryPage({ params }) {
 
   const hasGroups = Array.isArray(c.groups) && c.groups.length > 0;
   const allItems = hasGroups ? c.groups.flatMap((g) => g.items) : c.items || [];
-  // Les images locales ont une variante .webp pré-générée ; les URLs Cloudinary sont utilisées telles quelles.
-  const heroImg = c.image
-    ? c.image.startsWith('/images/')
-      ? c.image.replace(/\.jpg$/, '.webp')
-      : c.image
-    : '';
+  const heroImg = heroImage(c.image);
   const itemListJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',

@@ -9,8 +9,9 @@ export function generateStaticParams() {
   return conseils.map((c) => ({ slug: c.slug }));
 }
 
-export function generateMetadata({ params }) {
-  const c = getConseil(params.slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const c = getConseil(slug);
   if (!c) return {};
   return {
     title: c.title,
@@ -43,8 +44,9 @@ function renderRich(content) {
   return content;
 }
 
-export default function ConseilPage({ params }) {
-  const c = getConseil(params.slug);
+export default async function ConseilPage({ params }) {
+  const { slug } = await params;
+  const c = getConseil(slug);
   if (!c) notFound();
 
   const others = conseils.filter((x) => x.slug !== c.slug).slice(0, 2);
