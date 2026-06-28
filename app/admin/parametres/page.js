@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { api } from '@/components/admin/api';
+import ImageUploader from '@/components/admin/ImageUploader';
 
 export default function ParametresAdmin() {
   const [form, setForm] = useState(null); // { phoneDisplay, whatsapp }
@@ -12,7 +13,13 @@ export default function ParametresAdmin() {
   useEffect(() => {
     api
       .getSettings()
-      .then((s) => setForm({ phoneDisplay: s.phoneDisplay || '', whatsapp: s.whatsapp || '' }))
+      .then((s) =>
+        setForm({
+          phoneDisplay: s.phoneDisplay || '',
+          whatsapp: s.whatsapp || '',
+          heroImage: s.heroImage || '',
+        })
+      )
       .catch((e) => setError(e.message));
   }, []);
 
@@ -29,9 +36,14 @@ export default function ParametresAdmin() {
         phoneDisplay: form.phoneDisplay.trim(),
         // WhatsApp : on garde uniquement les chiffres (format international sans +).
         whatsapp: (form.whatsapp || '').replace(/\D/g, ''),
+        heroImage: (form.heroImage || '').trim(),
       };
       await api.updateSettings(payload);
-      setForm({ phoneDisplay: payload.phoneDisplay, whatsapp: payload.whatsapp });
+      setForm({
+        phoneDisplay: payload.phoneDisplay,
+        whatsapp: payload.whatsapp,
+        heroImage: payload.heroImage,
+      });
       setMsg({
         type: 'ok',
         text: 'Coordonnées enregistrées. Cliquez sur « Publier les modifications » (Tableau de bord) pour les afficher sur le site.',
@@ -87,6 +99,19 @@ export default function ParametresAdmin() {
           />
           <small style={{ color: '#6b7785' }}>
             Exemple : pour +235 93 16 62 02, saisissez 23593166202.
+          </small>
+        </div>
+
+        <div className="admin-field">
+          <label>Image d’accueil (grande photo de la page d’accueil)</label>
+          <ImageUploader
+            label=""
+            value={form.heroImage}
+            onChange={(url) => field({ heroImage: url })}
+          />
+          <small style={{ color: '#6b7785' }}>
+            Téléversez une photo (format paysage conseillé). Laissez vide pour garder l’image par
+            défaut.
           </small>
         </div>
 

@@ -22,10 +22,10 @@ router.get('/', async (req, res, next) => {
 // PUT /api/settings — mise à jour des coordonnées (protégé par JWT).
 router.put('/', auth, async (req, res, next) => {
   try {
-    const { phoneDisplay, whatsapp } = req.body;
+    const { phoneDisplay, whatsapp, heroImage } = req.body;
     const doc = await Settings.findOneAndUpdate(
       { key: KEY },
-      { $set: { phoneDisplay, whatsapp } },
+      { $set: { phoneDisplay, whatsapp, heroImage } },
       { new: true, upsert: true, runValidators: true }
     ).lean();
     res.json(doc);

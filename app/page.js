@@ -40,7 +40,7 @@ export default function Home() {
 
           <div className="hero-visual">
             <Image
-              src="/images/hero.jpg"
+              src={site.heroImage}
               alt="Cultures maraîchères en rangs — laitues vertes issues de semences de qualité"
               width={1280}
               height={853}

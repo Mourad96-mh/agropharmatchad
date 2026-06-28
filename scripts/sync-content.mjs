@@ -62,6 +62,7 @@ async function main() {
         {
           phoneDisplay: settings?.phoneDisplay || '',
           whatsapp: settings?.whatsapp || '',
+          heroImage: settings?.heroImage || '',
         },
         null,
         2
