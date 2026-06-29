@@ -1,10 +1,13 @@
-import { waLink } from '@/lib/site';
+'use client';
+
+import { useContent } from '@/components/content/ContentProvider';
 import { Icon } from './Icons';
 
 export default function FloatingWhatsApp() {
+  const { wa } = useContent();
   return (
     <a
-      href={waLink()}
+      href={wa()}
       className="fab-wa"
       target="_blank"
       rel="noopener noreferrer"

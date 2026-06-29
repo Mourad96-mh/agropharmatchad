@@ -1,10 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { site } from '@/lib/site';
-import { categories } from '@/lib/products';
+import { useContent } from '@/components/content/ContentProvider';
 import { Icon } from './Icons';
 
 export default function Footer() {
+  const { categories, site } = useContent();
   const year = new Date().getFullYear();
   return (
     <footer className="site-footer">
