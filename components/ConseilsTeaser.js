@@ -1,6 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { conseils } from '@/lib/conseils';
+import { useContent } from '@/components/content/ContentProvider';
 import { Icon } from '@/components/Icons';
 
 function formatDate(iso) {
@@ -9,6 +11,7 @@ function formatDate(iso) {
 
 // Teaser "Derniers conseils" — met en avant les articles récents sur l'accueil.
 export default function ConseilsTeaser({ soft = true, limit = 3 }) {
+  const { conseils } = useContent();
   const latest = [...conseils].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, limit);
 
   return (

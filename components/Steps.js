@@ -1,4 +1,6 @@
-import { site, waLink } from '@/lib/site';
+'use client';
+
+import { useContent } from '@/components/content/ContentProvider';
 import { Icon } from '@/components/Icons';
 
 const steps = [
@@ -26,6 +28,7 @@ const steps = [
 
 // Bande "Comment commander" — 4 étapes, réduit la friction vers le devis WhatsApp.
 export default function Steps({ soft = true }) {
+  const { site, wa } = useContent();
   return (
     <section className={`section${soft ? ' section-soft' : ''}`} id="commander">
       <div className="container">
@@ -45,7 +48,7 @@ export default function Steps({ soft = true }) {
           ))}
         </div>
         <div className="steps-cta">
-          <a href={waLink()} className="btn btn-wa" target="_blank" rel="noopener noreferrer">
+          <a href={wa()} className="btn btn-wa" target="_blank" rel="noopener noreferrer">
             <Icon name="whatsapp" size={18} /> Démarrer sur WhatsApp
           </a>
           <a href={`tel:${site.phoneHref}`} className="btn btn-ghost">

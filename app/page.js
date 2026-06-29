@@ -1,7 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { site, waLink } from '@/lib/site';
-import { categories } from '@/lib/products';
+import { useContent } from '@/components/content/ContentProvider';
 import { Icon } from '@/components/Icons';
 import Faq from '@/components/Faq';
 import Testimonials from '@/components/Testimonials';
@@ -9,6 +10,7 @@ import Steps from '@/components/Steps';
 import ConseilsTeaser from '@/components/ConseilsTeaser';
 
 export default function Home() {
+  const { categories, site, wa } = useContent();
   return (
     <>
       {/* HERO */}
@@ -27,7 +29,7 @@ export default function Home() {
               <Link href="/produits" className="btn btn-primary">
                 Découvrir nos produits <Icon name="arrow" size={18} />
               </Link>
-              <a href={waLink()} className="btn btn-wa" target="_blank" rel="noopener noreferrer">
+              <a href={wa()} className="btn btn-wa" target="_blank" rel="noopener noreferrer">
                 <Icon name="whatsapp" size={18} /> Demander un devis
               </a>
             </div>
@@ -86,7 +88,7 @@ export default function Home() {
                 </div>
               </Link>
             ))}
-            <a href={waLink()} target="_blank" rel="noopener noreferrer" className="card" style={{ background: 'var(--bg-green)', borderColor: '#cfe2c2' }}>
+            <a href={wa()} target="_blank" rel="noopener noreferrer" className="card" style={{ background: 'var(--bg-green)', borderColor: '#cfe2c2' }}>
               <div className="card-icon" style={{ background: '#fff' }}><Icon name="whatsapp" size={28} /></div>
               <h3>Un besoin précis ?</h3>
               <p>Contactez-nous pour un conseil personnalisé et un devis adapté à vos cultures.</p>
@@ -204,7 +206,7 @@ export default function Home() {
           <h2>Prêt à booster vos cultures ?</h2>
           <p>Demandez votre devis gratuit — notre équipe vous répond rapidement avec une offre adaptée à vos besoins.</p>
           <div className="cta-actions">
-            <a href={waLink()} className="btn btn-wa" target="_blank" rel="noopener noreferrer">
+            <a href={wa()} className="btn btn-wa" target="_blank" rel="noopener noreferrer">
               <Icon name="whatsapp" size={18} /> WhatsApp
             </a>
             <a href={`tel:${site.phoneHref}`} className="btn btn-white">

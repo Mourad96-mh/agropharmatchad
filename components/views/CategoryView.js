@@ -1,0 +1,190 @@
+'use client';
+
+// Corps (visible) de la page d'une gamme — lit le contenu live via useContent().
+// La page serveur (app/produits/[slug]/page.js) garde les métadonnées, le JSON-LD et
+// generateStaticParams ; elle nous passe la gamme figée au build comme valeur de repli.
+import Link from 'next/link';
+import Image from 'next/image';
+import { useContent } from '@/components/content/ContentProvider';
+import { getCategory, slugify } from '@/lib/products';
+import { Icon } from '@/components/Icons';
+import ProductItem from '@/components/ProductItem';
+import Faq from '@/components/Faq';
+
+export default function CategoryView({ slug, initialCategory, initialHeroImg }) {
+  const { categories, conseils, wa } = useContent();
+  const c = getCategory(slug, categories) || initialCategory;
+  if (!c) return null;
+
+  const others = categories.filter((x) => x.slug !== c.slug);
+
+  // Guides dont la liste `related` cible cette gamme (lien interne retour conseils → produits)
+  const relatedConseils = conseils
+    .filter((g) => g.related && g.related.some((r) => r.slug === c.slug))
+    .slice(0, 3);
+
+  const hasGroups = Array.isArray(c.groups) && c.groups.length > 0;
+  // Image de bannière : .webp optimisé (calculé au build) si l'image locale est inchangée ;
+  // sinon l'URL live (upload admin = Cloudinary) telle quelle.
+  const heroImg = c.image?.startsWith('/images/') ? initialHeroImg : (c.image || '');
+  const waMsg = `Bonjour AGROPHARMA TCHAD, je suis intéressé(e) par : ${c.title}. Pouvez-vous m'envoyer un devis ?`;
+
+  return (
+    <>
+      <section
+        className={`page-hero${c.image ? ' page-hero-img' : ''}`}
+        style={c.image ? { backgroundImage: `linear-gradient(90deg, rgba(20,40,18,0.82) 0%, rgba(20,40,18,0.55) 60%, rgba(20,40,18,0.35) 100%), url(${heroImg})` } : undefined}
+      >
+        <div className="container">
+          <nav className="breadcrumb">
+            <Link href="/">Accueil</Link> <span>/ </span>
+            <Link href="/produits">Produits</Link> <span>/ {c.title}</span>
+          </nav>
+          <span className="eyebrow"><Icon name={c.icon} size={15} /> {c.short}</span>
+          <h1>{c.title}</h1>
+          <p>{c.tagline}</p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="split" style={{ alignItems: 'start', marginBottom: 48 }}>
+            <div>
+              <h2>Présentation</h2>
+              <p className="lead">{c.intro}</p>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 20 }}>
+                <a href={wa(waMsg)} className="btn btn-wa" target="_blank" rel="noopener noreferrer">
+                  <Icon name="whatsapp" size={18} /> Devis pour cette gamme
+                </a>
+                <Link href="/contact" className="btn btn-ghost">Nous contacter</Link>
+              </div>
+            </div>
+            <div className="media-card" style={{ display: 'grid', placeItems: 'center', textAlign: 'center' }}>
+              <div className="card-icon" style={{ width: 84, height: 84, background: '#fff', marginBottom: 16 }}>
+                <Icon name={c.icon} size={42} />
+              </div>
+              <h3 style={{ color: '#fff' }}>{c.short}</h3>
+              <p style={{ color: '#d9f2cf', margin: 0 }}>Qualité &amp; conseil — AGROPHARMA TCHAD</p>
+            </div>
+          </div>
+
+          {c.brand && (
+            <div className="brand-strip">
+              <span className="brand-strip-label">En partenariat avec</span>
+              <span className="brand-badge">{c.brand}</span>
+              <p>{c.brandNote}</p>
+            </div>
+          )}
+
+          <h2 style={{ marginBottom: 24 }}>
+            {hasGroups ? 'Nos variétés par catégorie' : 'Ce que nous proposons'}
+          </h2>
+
+          {hasGroups ? (
+            <div className="groups">
+              {c.groups.map((g) => (
+                <div key={g.title} className="group">
+                  <div className="group-head">
+                    <h3>{g.title}</h3>
+                    <p>{g.desc}</p>
+                  </div>
+                  <div className="item-grid">
+                    {g.items.map((it) => (
+                      <ProductItem key={it.name} item={it} fallbackImage={c.image} href={`/produits/${c.slug}/${slugify(it.name)}`} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="item-grid">
+              {(c.items || []).map((it) => (
+                <ProductItem key={it.name} item={it} fallbackImage={c.image} href={`/produits/${c.slug}/${slugify(it.name)}`} />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Conseil & formation */}
+      {c.advisory && (
+        <section className="section section-soft">
+          <div className="container">
+            <div className="section-head">
+              <h2>Conseil &amp; formation</h2>
+              <p>Au-delà de la vente, notre équipe technique accompagne les producteurs sur le terrain.</p>
+            </div>
+            <div className="grid grid-2">
+              <div className="feature">
+                <div className="fi"><Icon name="leaf" size={24} /></div>
+                <div>
+                  <h3>Conseil technique</h3>
+                  <p>Choix des variétés, doses de semis, calendrier cultural et itinéraires adaptés à votre zone et à votre saison.</p>
+                </div>
+              </div>
+              <div className="feature">
+                <div className="fi"><Icon name="users" size={24} /></div>
+                <div>
+                  <h3>Formation des producteurs</h3>
+                  <p>Sessions et démonstrations pour renforcer les capacités et faire découvrir les nouvelles variétés et techniques.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Conseils associés */}
+      {relatedConseils.length > 0 && (
+        <section className={`section${c.advisory ? '' : ' section-soft'}`}>
+          <div className="container">
+            <div className="section-head">
+              <span className="eyebrow"><Icon name="book" size={15} /> Conseils & guides</span>
+              <h2>À lire pour bien utiliser cette gamme</h2>
+              <p>Nos guides pratiques, adaptés au climat sahélien du Tchad.</p>
+            </div>
+            <div className="grid grid-2">
+              {relatedConseils.map((g) => (
+                <Link key={g.slug} href={`/conseils/${g.slug}`} className="card card-row">
+                  <div className="card-thumb">
+                    <Image src={g.image} alt={g.title} fill sizes="120px" />
+                  </div>
+                  <div>
+                    <h3>{g.title}</h3>
+                    <p>{g.excerpt.slice(0, 110)}…</p>
+                    <span className="card-link">Lire le guide <Icon name="arrow" size={16} /></span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Autres gammes */}
+      <section className="section">
+        <div className="container">
+          <div className="section-head">
+            <h2>Autres gammes</h2>
+          </div>
+          <div className="grid grid-4">
+            {others.map((o) => (
+              <Link key={o.slug} href={`/produits/${o.slug}`} className="card card-img">
+                <div className="card-media">
+                  <Image src={o.image} alt={o.title} fill sizes="(max-width: 760px) 50vw, 280px" />
+                  <span className="card-media-icon"><Icon name={o.icon} size={18} /></span>
+                </div>
+                <div className="card-body">
+                  <h3 style={{ fontSize: '1.1rem' }}>{o.title}</h3>
+                  <span className="card-link">Voir <Icon name="arrow" size={16} /></span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Faq />
+    </>
+  );
+}

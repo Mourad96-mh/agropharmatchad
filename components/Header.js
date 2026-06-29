@@ -4,11 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { navLinks, site, waLink } from '@/lib/site';
-import { categories } from '@/lib/products';
+import { navLinks } from '@/lib/site';
+import { useContent } from '@/components/content/ContentProvider';
 import { Icon } from './Icons';
 
 export default function Header() {
+  const { categories, wa } = useContent();
   const [open, setOpen] = useState(false);
   const [submenu, setSubmenu] = useState(false);
   const pathname = usePathname();
@@ -84,7 +85,7 @@ export default function Header() {
         </nav>
 
         <div className="header-cta">
-          <a href={waLink()} className="btn btn-primary btn-desktop" target="_blank" rel="noopener noreferrer">
+          <a href={wa()} className="btn btn-primary btn-desktop" target="_blank" rel="noopener noreferrer">
             <Icon name="whatsapp" size={18} /> Devis gratuit
           </a>
           <button

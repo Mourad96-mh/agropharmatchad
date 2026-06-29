@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { site } from '@/lib/site';
-import { categories } from '@/lib/products';
+import { useContent } from '@/components/content/ContentProvider';
 import { Icon } from './Icons';
 
 export default function QuoteForm() {
+  const { categories, site } = useContent();
   const [sent, setSent] = useState(false);
 
   function buildMessage(data) {

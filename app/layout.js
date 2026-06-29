@@ -3,7 +3,11 @@ import './components.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import { ContentProvider } from '@/components/content/ContentProvider';
 import { site } from '@/lib/site';
+import { categories } from '@/lib/products';
+import { conseils } from '@/lib/conseils';
+import siteOverrides from '@/lib/site.data.json';
 
 export const metadata = {
   metadataBase: new URL(site.url),
@@ -115,10 +119,16 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <FloatingWhatsApp />
+        <ContentProvider
+          initialCategories={categories}
+          initialConseils={conseils}
+          initialSettings={siteOverrides}
+        >
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <FloatingWhatsApp />
+        </ContentProvider>
       </body>
     </html>
   );
